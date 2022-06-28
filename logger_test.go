@@ -36,3 +36,15 @@ func TestLogWithPrefix(t *testing.T) {
 
 	assert.Equal(t, "{\"level\":\"debug\",\"labels.foo\":\"bar\",\"message\":\"test\"}\n", string(buf.Bytes()))
 }
+
+func TestLogWithPrefixAndSubSubWith(t *testing.T) {
+	buf := bytes.NewBuffer([]byte{})
+
+	logger := zerolog.New(buf)
+
+	l := InterceptorLogger(logger, WithFieldPrefix("labels."))
+
+	l.With("foo-1", "bar1").With("foo-2", "bar2").Log(logging.DEBUG, "test")
+
+	assert.Equal(t, "{\"level\":\"debug\",\"labels.foo-1\":\"bar1\",\"labels.foo-2\":\"bar2\",\"message\":\"test\"}\n", string(buf.Bytes()))
+}

@@ -14,6 +14,7 @@ var _ logging.Logger = (*Logger)(nil)
 type Logger struct {
 	zerolog.Logger
 
+	opts        []Option
 	fieldPrefix string
 }
 
@@ -29,6 +30,7 @@ func WithFieldPrefix(prefix string) Option {
 func InterceptorLogger(logger zerolog.Logger, opts ...Option) *Logger {
 	l := &Logger{
 		Logger: logger,
+		opts:   opts,
 	}
 
 	for _, opt := range opts {
@@ -62,7 +64,7 @@ func (l Logger) With(fields ...string) logging.Logger {
 		vals[l.formatField(fields[i])] = fields[i+1]
 	}
 
-	return InterceptorLogger(l.Logger.With().Fields(vals).Logger())
+	return InterceptorLogger(l.Logger.With().Fields(vals).Logger(), l.opts...)
 }
 
 func (l Logger) formatField(field string) string {
