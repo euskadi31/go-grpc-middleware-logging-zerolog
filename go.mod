@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
-	github.com/rs/zerolog v1.27.0
+	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.0
 )
 
