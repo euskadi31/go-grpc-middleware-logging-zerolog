@@ -3,7 +3,7 @@ module github.com/euskadi31/go-grpc-middleware-logging-zerolog
 go 1.17
 
 require (
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.3
 	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.0
 )
