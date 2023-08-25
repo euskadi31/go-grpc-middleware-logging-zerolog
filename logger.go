@@ -1,6 +1,7 @@
 package zerolog
 
 import (
+	"context"
 	"strings"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
@@ -41,24 +42,24 @@ func InterceptorLogger(logger zerolog.Logger, opts ...Option) *Logger {
 }
 
 // Log implements the logging.Logger interface.
-func (l *Logger) Log(lvl logging.Level, msg string) {
-	switch lvl {
-	case logging.DEBUG:
+func (l *Logger) Log(ctx context.Context, level logging.Level, msg string, fields ...any) {
+	switch level {
+	case logging.LevelDebug:
 		l.Debug().Msg(msg)
-	case logging.INFO:
+	case logging.LevelInfo:
 		l.Info().Msg(msg)
-	case logging.WARNING:
+	case logging.LevelWarn:
 		l.Warn().Msg(msg)
-	case logging.ERROR:
+	case logging.LevelError:
 		l.Error().Msg(msg)
 	default:
-		l.Error().Msgf("zerolog: unknown level %s using error", lvl)
+		l.Error().Msgf("zerolog: unknown level %d using error", level)
 		l.Error().Msg(msg)
 	}
 }
 
 // With implements the logging.Logger interface.
-func (l Logger) With(fields ...string) logging.Logger {
+func (l Logger) With(fields ...string) *Logger {
 	vals := make(map[string]interface{}, len(fields)/2)
 	for i := 0; i < len(fields); i += 2 {
 		vals[l.formatField(fields[i])] = fields[i+1]
