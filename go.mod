@@ -1,6 +1,7 @@
 module github.com/euskadi31/go-grpc-middleware-logging-zerolog
 
-go 1.23
+go 1.23.0
+
 toolchain go1.24.1
 
 require (
