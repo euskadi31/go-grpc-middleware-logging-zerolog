@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3
-	github.com/rs/zerolog v1.35.0
+	github.com/rs/zerolog v1.35.1
 	github.com/stretchr/testify v1.11.1
 )
 
